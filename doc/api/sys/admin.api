@@ -1,0 +1,29 @@
+syntax = "v1"
+
+info(
+	title: "go zero admin test"
+)
+
+type (
+	loginReq {
+		Phone    string `json:"phone"`
+		Password string `json:"password"`
+	}
+	loginResq {
+		Code         string `json:"code"`
+		Message      string `json:"message"`
+		Id           int64  `json:"id"`
+		Name         string `json:"name"`
+		Phone        string `json:"phone"`
+		AccessToken  string `json:"accessToken"`
+		AccessExipre int64  `json:"accessExipre"`
+	}
+)
+
+@server(
+	group: sys/admin
+)
+service admin-api {
+	@handler AdminLogin
+	post /api/sys/admin/login (loginReq) returns (loginResq)
+}

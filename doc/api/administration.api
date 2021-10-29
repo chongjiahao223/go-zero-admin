@@ -1,0 +1,7 @@
+syntax = "v1"
+
+import "sys/admin.api"
+
+info(
+	title: "go zero admin test"
+)
