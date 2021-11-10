@@ -15,8 +15,8 @@ import (
 var (
 	adminsFieldNames          = builderx.RawFieldNames(&Admins{})
 	adminsRows                = strings.Join(adminsFieldNames, ",")
-	adminsRowsExpectAutoSet   = strings.Join(stringx.Remove(adminsFieldNames, "`id`", "`create_time`", "`update_time`"), ",")
-	adminsRowsWithPlaceHolder = strings.Join(stringx.Remove(adminsFieldNames, "`id`", "`create_time`", "`update_time`"), "=?,") + "=?"
+	adminsRowsExpectAutoSet   = strings.Join(stringx.Remove(adminsFieldNames, "`id`", "`created_at`", "`updated_at`", "`deleted_at`"), ",")
+	adminsRowsWithPlaceHolder = strings.Join(stringx.Remove(adminsFieldNames, "`id`", "`created_at`", "`updated_at`", "`deleted_at`"), "=?,") + "=?"
 )
 
 type (
@@ -54,8 +54,8 @@ func NewAdminsModel(conn sqlx.SqlConn) AdminsModel {
 }
 
 func (m *defaultAdminsModel) Insert(data Admins) (sql.Result, error) {
-	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?)", m.table, adminsRowsExpectAutoSet)
-	ret, err := m.conn.Exec(query, data.Name, data.Phone, data.Password, data.Status, data.CreatedAt, data.UpdatedAt, data.DeletedAt)
+	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?)", m.table, adminsRowsExpectAutoSet)
+	ret, err := m.conn.Exec(query, data.Name, data.Phone, data.Password, data.Status)
 	return ret, err
 }
 

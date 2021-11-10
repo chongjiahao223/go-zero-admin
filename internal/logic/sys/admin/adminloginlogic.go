@@ -51,8 +51,8 @@ func (l *AdminLoginLogic) AdminLogin(req types.LoginReq) (*types.LoginResq, erro
 	}
 
 	now := time.Now().Unix()
-	accessExpire := l.svcCtx.Config.JWT.AccessExpire
-	jwtToken, err := l.getJwtToken(l.svcCtx.Config.JWT.AccessSecret, now, accessExpire, adminInfo.Id)
+	accessExpire := l.svcCtx.Config.Auth.AccessExpire
+	jwtToken, err := l.getJwtToken(l.svcCtx.Config.Auth.AccessSecret, now, accessExpire, adminInfo.Id)
 
 	if err != nil {
 		reqStr, _ := json.Marshal(req)
@@ -61,12 +61,12 @@ func (l *AdminLoginLogic) AdminLogin(req types.LoginReq) (*types.LoginResq, erro
 	}
 
 	return &types.LoginResq{
-		Code: "000000",
-		Message: "登录成功",
-		Id: adminInfo.Id,
-		Name: adminInfo.Name,
-		Phone: adminInfo.Phone,
-		AccessToken: jwtToken,
+		Code:         "000000",
+		Message:      "登录成功",
+		Id:           adminInfo.Id,
+		Name:         adminInfo.Name,
+		Phone:        adminInfo.Phone,
+		AccessToken:  jwtToken,
 		AccessExipre: accessExpire,
 	}, nil
 }

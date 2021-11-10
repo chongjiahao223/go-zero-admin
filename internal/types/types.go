@@ -15,3 +15,15 @@ type LoginResq struct {
 	AccessToken  string `json:"accessToken"`
 	AccessExipre int64  `json:"accessExipre"`
 }
+
+type AddAdminReq struct {
+	Name     string `json:"name"`
+	Phone    string `json:"phone"`
+	Password string `json:"password"`
+	Status   int64  `json:"status"`
+}
+
+type AddAdminResq struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+}
